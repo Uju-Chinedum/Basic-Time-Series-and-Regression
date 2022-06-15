@@ -55,14 +55,9 @@ scatter.smooth(df$x1, df$y, xlab = "Input signal", ylab = "Output signal",
 # Boxplots of ooutput and sound categories
 boxplot(y ~ x2, df, xlab = "Category", ylab = "Output Signal", col = "purple")
 
-# Regression
-model <- lm(x1 ~ y + x2, data = df)
-model
-
-ggplot(df, aes(x1, y, x2)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  theme_bw()
-
-RSS <- sum(resid(model)^2) 
-RSS
+# Least Square Method
+X_std <- scale(df$x1) # Standardizing the x1 column
+p1 <- 1 / (X_std * df$x1)
+p2 <- X_std * df$y
+LSM <- p1 * p2
+LSM
