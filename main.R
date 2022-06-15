@@ -8,7 +8,9 @@ library(tidyverse)
 library(TSstudio)
 # install.packages("lubridate")
 library(lubridate)
-
+# install.packages(c("broom", "ggpubr"))
+library(broom)
+library(ggpubr)
                 ###########################
                 #### Data Manipulation ####
                 ###########################
@@ -30,6 +32,10 @@ x <- as.POSIXct(strptime(df$time, format = "%S"))
 df <- mutate(df, time = x)
 View(df)
 
+                #################
+                #### Answers ####
+                #################
+
 # Time-Series plot
 ts_plot(df)
 
@@ -42,6 +48,12 @@ hist(df$y, main = "Distribution of output signals", xlab = "Output signal")
 # Correlation and scatter plots
 scatter.smooth(df$x1, df$y, xlab = "Input signal", ylab = "Output signal", 
                col = "red")
+# plot(x1 ~ y, data = df, xlab = "Input signal", ylab = "Output signal", 
+#      col = "red")
 
 # Boxplots of ooutput and sound categories
-boxplot(y~x2, df, xlab = "Category", ylab = "Output Signal", col = "purple")
+boxplot(y ~ x2, df, xlab = "Category", ylab = "Output Signal", col = "purple")
+
+# Regression
+summary(lm(x1 ~ y, data = df))
+
