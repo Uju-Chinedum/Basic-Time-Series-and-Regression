@@ -4,6 +4,7 @@
                 
 # install.packages("tidyverse")
 library(tidyverse)
+library(ggplot2)
 # install.packages("TSstudio")
 library(TSstudio)
 # install.packages("lubridate")
@@ -57,3 +58,7 @@ boxplot(y ~ x2, df, xlab = "Category", ylab = "Output Signal", col = "purple")
 # Regression
 summary(lm(x1 ~ y, data = df))
 
+ggplot(df, aes(x = df$x1, y = df$y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_bw()
