@@ -56,9 +56,13 @@ scatter.smooth(df$x1, df$y, xlab = "Input signal", ylab = "Output signal",
 boxplot(y ~ x2, df, xlab = "Category", ylab = "Output Signal", col = "purple")
 
 # Regression
-summary(lm(x1 ~ y, data = df))
+model <- lm(x1 ~ y + x2, data = df)
+model
 
-ggplot(df, aes(x = x1, y = y)) +
+ggplot(df, aes(x1, y, x2)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   theme_bw()
+
+RSS <- sum(resid(model)^2) 
+RSS
