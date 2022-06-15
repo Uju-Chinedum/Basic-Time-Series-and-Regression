@@ -58,7 +58,7 @@ boxplot(y ~ x2, df, xlab = "Category", ylab = "Output Signal", col = "purple")
 # Regression
 summary(lm(x1 ~ y, data = df))
 
-ggplot(df, aes(x = df$x1, y = df$y)) +
+ggplot(df, aes(x = x1, y = y)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   theme_bw()
