@@ -12,11 +12,11 @@ library(TSstudio)
                 ###########################
                 
 # Reading files
-time <- read_csv("../Sir Divine/3/time.csv")
+time <- read_csv("../Sir Divine/3/Basic-Time-Series-and-Regression/time.csv")
 View(time)
-X <- read_csv("../Sir Divine/3/X.csv")
+X <- read_csv("../Sir Divine/3/Basic-Time-Series-and-Regression/X.csv")
 View(X)
-y <- read_csv("../Sir Divine/3/y.csv")
+y <- read_csv("../Sir Divine/3/Basic-Time-Series-and-Regression/y.csv")
 View(y)
 
 # Merging the tables
@@ -38,4 +38,8 @@ hist(df$x1, main = "Distribution of input signals", xlab = "Input signal")
 hist(df$y, main = "Distribution of output signals", xlab = "Output signal")
 
 # Correlation and scatter plots
-scatter.smooth(df$x1, df$y, xlab = "Input signal", ylab = "Output signal")
+scatter.smooth(df$x1, df$y, xlab = "Input signal", ylab = "Output signal", 
+               col = "red")
+
+# Boxplots of ooutput and sound categories
+boxplot(y~x2, df, xlab = "Category", ylab = "Output Signal", col = "purple")
