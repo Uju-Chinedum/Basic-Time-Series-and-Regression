@@ -61,3 +61,9 @@ p1 <- 1 / (X_std * df$x1)
 p2 <- X_std * df$y
 LSM <- p1 * p2
 LSM
+
+# Residual Summ of Squares
+fx <- df$x1 * LSM
+sq_diff <- (df$y - fx) ** 2
+RSS <- sum(sq_diff)
+RSS
