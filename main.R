@@ -21,11 +21,11 @@ library(ggpubr)
                 ###########################
                 
 # Reading files
-time <- read.csv("/Users/test/Desktop/Basic-Time-Series-and-Regression/time.csv")
+time <- read_csv("time.csv")
 View(time)
-X <- read.csv("/Users/test/Desktop/Basic-Time-Series-and-Regression/X.csv")
+X <- read_csv("X.csv")
 View(X)
-y <- read_csv("/Users/test/Desktop/Basic-Time-Series-and-Regression/y.csv")
+y <- read_csv("y.csv")
 View(y)
 
 # Merging the tables
@@ -216,9 +216,29 @@ chk5 <- plotqq(plymod5)
 
 # Based on the plot, AIC and BIC, plymod3 is the best equation
 
+df3 <- select(df2, -c(time, date))
+View(df3)
 
+condition <- sample(c(TRUE, FALSE), nrow(df3), replace = TRUE, 
+                    prob = c(0.7, 0.3))
+train <- df3[condition, ]
+test <- df3[!condition, ]
 
+estimate <- lm(y ~ I(x1) + I(x1 ** 2) + I(x1 ** 4) + I(x2), data = train)
+summary(estimate)
+# y = 9.78024 + 8.84439(x1) + 6.49981(x1^2) + -0.29489(x1^4) + 4.57274(x2)
 
+prediction <- predict(estimate, test)
+prediction <- data.frame(
+    Prediction = prediction, 
+    x1 = test$x1, 
+    x2 = test$x2, 
+    y = test$y
+)
+View(prediction)
+
+plot(prediction$Prediction - prediction$y, 
+     main = "Difference between actual and predicted")
 
 # Least Square Method
 LSM <- function(dfcol, model){
