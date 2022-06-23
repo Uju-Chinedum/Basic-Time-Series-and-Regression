@@ -228,7 +228,7 @@ estimate <- lm(y ~ I(x1) + I(x1 ** 2) + I(x1 ** 4) + I(x2), data = train)
 summary(estimate)
 # y = 9.78024 + 8.84439(x1) + 6.49981(x1^2) + -0.29489(x1^4) + 4.57274(x2)
 
-prediction <- predict(estimate, test)
+prediction <- predict(estimate, test, interval = "prediction")
 prediction <- data.frame(
     Prediction = prediction, 
     x1 = test$x1, 
@@ -236,6 +236,8 @@ prediction <- data.frame(
     y = test$y
 )
 View(prediction)
+
+confidence <- predict(estimate, test, interval = "confidence")
 
 plot(prediction$Prediction - prediction$y, 
      main = "Difference between actual and predicted")
