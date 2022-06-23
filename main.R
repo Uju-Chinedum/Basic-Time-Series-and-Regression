@@ -237,7 +237,7 @@ prediction <- data.frame(
 )
 View(prediction)
 
-confidence <- predict(estimate, test, interval = "confidence")
+plot(confidence <- predict(estimate, test, interval = "confidence"))
 
 plot(prediction$Prediction - prediction$y, 
      main = "Difference between actual and predicted")
